@@ -1995,6 +1995,7 @@ class Upgrade extends Installer {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * For 2.4.x - 3.1.0 upgrade: remove cancelled review assignments.
 	 * @return boolean
 	 */
@@ -2017,6 +2018,8 @@ class Upgrade extends Installer {
 	}
 
 	/**
+=======
+>>>>>>> journal_iitta_template
 	 * For 2.4.x - 3.1.0 upgrade: concatenate removed journal setting fields into the new journal setting 'about'.
 	 * @return boolean
 	 */
@@ -2025,7 +2028,10 @@ class Upgrade extends Installer {
 		$journalSettingsDao = DAORegistry::getDAO('JournalSettingsDAO');
 		$journals = $journalDao->getAll();
 		while ($journal = $journals->next()) {
+<<<<<<< HEAD
 			$settings = $journalSettingsDao->loadSettings($journal->getId());
+=======
+>>>>>>> journal_iitta_template
 			$supportedFormLocales = $journal->getSupportedFormLocales();
 			$focusAndScope = $journal->getSetting('focusScopeDesc');
 			$focusAndScope['localeKey'] = 'about.focusAndScope';
@@ -2165,7 +2171,11 @@ class Upgrade extends Installer {
 		$roles = array(OJS2_ROLE_ID_EDITOR, OJS2_ROLE_ID_SECTION_EDITOR, OJS2_ROLE_ID_LAYOUT_EDITOR, OJS2_ROLE_ID_COPYEDITOR, OJS2_ROLE_ID_PROOFREADER);
 		$localeKeys = array(
 			OJS2_ROLE_ID_EDITOR => array('user.role.editor', 'user.role.editors'),
+<<<<<<< HEAD
 			OJS2_ROLE_ID_SECTION_EDITOR => array('user.role.subEditor', 'user.role.subEditors'),
+=======
+			OJS2_ROLE_ID_SECTION_EDITOR => array('user.role.sectionEditor', 'user.role.subEditors'),
+>>>>>>> journal_iitta_template
 			OJS2_ROLE_ID_LAYOUT_EDITOR => array('user.role.layoutEditor', 'user.role.layoutEditors'),
 			OJS2_ROLE_ID_COPYEDITOR => array('user.role.copyeditor', 'user.role.copyeditors'),
 			OJS2_ROLE_ID_PROOFREADER => array('user.role.proofreader', 'user.role.proofreaders'),
@@ -2180,7 +2190,10 @@ class Upgrade extends Installer {
 
 		$journals = $journalDao->getAll();
 		while ($journal = $journals->next()) {
+<<<<<<< HEAD
 			$settings = $journalSettingsDao->loadSettings($journal->getId());
+=======
+>>>>>>> journal_iitta_template
 			if ($journal->getSetting('boardEnabled')) {
 				// get all users by group ID
 				$groupUsers = array();
@@ -2278,7 +2291,11 @@ class Upgrade extends Installer {
 					}
 				}
 			}
+<<<<<<< HEAD
 			$journalSettingsDao->updateSetting($journal->getId(), 'editorialTeam', $masthead, 'string', true);
+=======
+			$journalSettingsDao->updateSetting($journal->getId(), 'masthead', $masthead, 'string', true);
+>>>>>>> journal_iitta_template
 			unset($journal);
 		}
 		return true;
@@ -2289,8 +2306,11 @@ class Upgrade extends Installer {
 	 * @return boolean
 	 */
 	function repairImageAssociations() {
+<<<<<<< HEAD
 		$genreDao = DAORegistry::getDAO('GenreDAO');
 		$submissionDao = Application::getSubmissionDAO();
+=======
+>>>>>>> journal_iitta_template
 		$submissionFileDao = DAORegistry::getDAO('SubmissionFileDAO');
 		$result = $submissionFileDao->retrieve('SELECT df.file_id AS dependent_file_id, gf.file_id AS galley_file_id FROM submission_files df, submission_files gf, submission_html_galley_images i, submission_galleys g WHERE i.galley_id = g.galley_id AND g.file_id = gf.file_id AND i.file_id = df.file_id');
 		while (!$result->EOF) {
@@ -2299,6 +2319,7 @@ class Upgrade extends Installer {
 			foreach ((array) $submissionFiles as $submissionFile) {
 				if ($submissionFile->getFileStage() != SUBMISSION_FILE_PUBLIC) continue;
 
+<<<<<<< HEAD
 				$submission = $submissionDao->getById($submissionFile->getSubmissionId());
 				$imageGenre = $genreDao->getByKey('IMAGE', $submission->getContextId());
 
@@ -2306,10 +2327,16 @@ class Upgrade extends Installer {
 				$submissionFile->setAssocType(ASSOC_TYPE_SUBMISSION_FILE);
 				$submissionFile->setAssocId($row['galley_file_id']);
 				$submissionFile->setGenreId($imageGenre->getId());
+=======
+				$submissionFile->setFileStage(SUBMISSION_FILE_DEPENDENT);
+				$submissionFile->setAssocType(ASSOC_TYPE_SUBMISSION_FILE);
+				$submissionFile->setAssocId($row['galley_file_id']);
+>>>>>>> journal_iitta_template
 				$submissionFileDao->updateObject($submissionFile);
 			}
 			$result->MoveNext();
 		}
+<<<<<<< HEAD
 		$submissionDao->update('DROP TABLE submission_html_galley_images');
 		return true;
 	}
@@ -2575,6 +2602,10 @@ class Upgrade extends Installer {
 		return true;
 	}
 
+=======
+		return true;
+	}
+>>>>>>> journal_iitta_template
 }
 
 ?>

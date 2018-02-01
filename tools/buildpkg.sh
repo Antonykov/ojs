@@ -26,6 +26,7 @@ PREFIX=ojs
 BUILD=$PREFIX-$VERSION
 TMPDIR=`mktemp -d $PREFIX.XXXXXX` || exit 1
 
+<<<<<<< HEAD
 EXCLUDE="dbscripts/xml/data/locale/en_US/sample.xml					\
 dbscripts/xml/data/sample.xml								\
 docs/dev										\
@@ -110,6 +111,81 @@ node_modules										\
 package.json										\
 webpack.config.js									\
 lib/ui-library"
+=======
+EXCLUDE="dbscripts/xml/data/locale/en_US/sample.xml		\
+dbscripts/xml/data/sample.xml					\
+docs/dev							\
+tests								\
+tools/buildpkg.sh						\
+tools/genLocaleReport.sh					\
+tools/genTestLocale.php						\
+tools/test							\
+lib/pkp/tools/travis						\
+lib/pkp/plugins/*/*/tests					\
+plugins/*/*/tests						\
+plugins/auth/ldap						\
+plugins/generic/announcementFeed				\
+plugins/generic/backup						\
+plugins/generic/browse						\
+plugins/generic/coins						\
+plugins/generic/cookiesAlert					\
+plugins/generic/counter						\
+plugins/generic/customLocale					\
+plugins/generic/driver						\
+plugins/generic/externalFeed					\
+plugins/generic/lucene						\
+plugins/generic/openAIRE					\
+plugins/generic/phpMyVisites					\
+plugins/generic/recommendBySimilarity				\
+plugins/generic/translator					\
+plugins/oaiMetadataFormats/nlm					\
+plugins/importexport/sample					\
+plugins/importexport/duracloud					\
+plugins/importexport/pubmed					\
+plugins/reports/subscriptions					\
+plugins/blocks/relatedItems					\
+tests								\
+lib/pkp/tests							\
+.git								\
+.openshift							\
+.scrutinizer.yml						\
+.travis.yml							\
+lib/pkp/.git							\
+lib/pkp/lib/components/*.js					\
+lib/pkp/lib/components/*.css					\
+lib/pkp/lib/vendor/components					\
+lib/pkp/lib/vendor/composer					\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/art			\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/benchmarks		\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/configdog		\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/docs			\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/extras			\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/maintenance		\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/smoketests		\
+lib/pkp/lib/vendor/ezyang/htmlpurifier/tests			\
+lib/pkp/lib/vendor/kriswallsmith				\
+lib/pkp/lib/vendor/leafo/lessphp/tests				\
+lib/pkp/lib/vendor/leafo/lessphp/docs				\
+lib/pkp/lib/vendor/moxiecode/plupload/examples			\
+lib/pkp/lib/vendor/phpmailer/phpmailer/docs			\
+lib/pkp/lib/vendor/phpmailer/phpmailer/examples			\
+lib/pkp/lib/vendor/phpmailer/phpmailer/test			\
+lib/pkp/lib/vendor/robloach					\
+lib/pkp/lib/vendor/smarty/smarty/demo				\
+lib/pkp/lib/vendor/symfony					\
+lib/pkp/lib/vendor/phpunit					\
+lib/pkp/lib/vendor/phpspec					\
+lib/pkp/lib/vendor/phpdocumentor				\
+lib/pkp/lib/vendor/doctrine					\
+lib/pkp/js/lib/pnotify/build-tools				\
+lib/pkp/lib/vendor/sebastian					\
+lib/pkp/lib/vendor/oyejorge/less.php/test			\
+lib/pkp/lib/vendor/webmozart					\
+lib/pkp/tools/travis						\
+lib/pkp/lib/swordappv2/.git					\
+lib/pkp/lib/swordappv2/.git					\
+lib/pkp/lib/swordappv2/test"
+>>>>>>> journal_iitta_template
 
 
 cd $TMPDIR

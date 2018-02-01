@@ -172,6 +172,66 @@ class OAIDAO extends PKPOAIDAO {
 	// Protected methods.
 	//
 	/**
+<<<<<<< HEAD
+=======
+	 * @see lib/pkp/classes/oai/PKPOAIDAO::getRecordSelectStatement()
+	 */
+	function getRecordSelectStatement() {
+		return 'SELECT	CASE WHEN COALESCE(dot.date_deleted, a.last_modified) < i.last_modified THEN i.last_modified ELSE COALESCE(dot.date_deleted, a.last_modified) END AS last_modified,
+			COALESCE(a.submission_id, dot.data_object_id) AS submission_id,
+			COALESCE(j.journal_id, tsoj.assoc_id) AS journal_id,
+			COALESCE(tsos.assoc_id, s.section_id) AS section_id,
+			i.issue_id,
+			dot.tombstone_id,
+			dot.set_spec,
+			dot.oai_identifier';
+	}
+
+	/**
+	 * @see lib/pkp/classes/oai/PKPOAIDAO::getRecordJoinClause()
+	 */
+	function getRecordJoinClause($articleId = null, $setIds = array(), $set = null) {
+		if (isset($setIds[1])) {
+			list($journalId, $sectionId) = $setIds;
+		} else {
+			list($journalId) = $setIds;
+		}
+		return 'LEFT JOIN published_submissions pa ON (m.i=0' . (isset($articleId) ? ' AND pa.submission_id = ?' : '') . ')
+			LEFT JOIN submissions a ON (a.submission_id = pa.submission_id' . (isset($journalId) ? ' AND a.context_id = ?' : '') . (isset($sectionId) ? ' AND a.section_id = ?' : '') .')
+			LEFT JOIN issues i ON (i.issue_id = pa.issue_id)
+			LEFT JOIN sections s ON (s.section_id = a.section_id)
+			LEFT JOIN journals j ON (j.journal_id = a.context_id)
+			LEFT JOIN data_object_tombstones dot ON (m.i = 1' . (isset($articleId) ? ' AND dot.data_object_id = ?' : '') . (isset($set) ? ' AND (dot.set_spec = ? OR dot.set_spec LIKE ?)' : '') .')
+			LEFT JOIN data_object_tombstone_oai_set_objects tsoj ON ' . (isset($journalId) ? '(tsoj.tombstone_id = dot.tombstone_id AND tsoj.assoc_type = ' . ASSOC_TYPE_JOURNAL . ')' : 'tsoj.assoc_id = null') .
+			' LEFT JOIN data_object_tombstone_oai_set_objects tsos ON ' . (isset($sectionId) ? '(tsos.tombstone_id = dot.tombstone_id AND tsos.assoc_type = ' . ASSOC_TYPE_SECTION . ')' : 'tsos.assoc_id = null');
+	}
+
+	/**
+	 * @see lib/pkp/classes/oai/PKPOAIDAO::getAccessibleRecordWhereClause()
+	 */
+	function getAccessibleRecordWhereClause($setIds = array()) {
+		if (isset($setIds[1])) {
+			list($journalId, $sectionId) = $setIds;
+		} else {
+			list($journalId) = $setIds;
+		}
+		return 'WHERE ((s.section_id IS NOT NULL AND i.published = 1 AND j.enabled = 1 AND a.status <> ' . STATUS_DECLINED . ') OR (dot.data_object_id IS NOT NULL'
+				. (isset($journalId) ? ' AND tsoj.assoc_id = ?' : '')
+				. (isset($sectionId) ? ' AND tsos.assoc_id = ?' : '')
+				.'))';
+	}
+
+	/**
+	 * @see lib/pkp/classes/oai/PKPOAIDAO::getDateRangeWhereClause()
+	 */
+	function getDateRangeWhereClause($from, $until) {
+		return (isset($from) ? ' AND CASE WHEN COALESCE(dot.date_deleted, a.last_modified) < i.last_modified THEN (i.last_modified >= ' . $this->datetimeToDB($from) . ') ELSE ((dot.date_deleted IS NOT NULL AND dot.date_deleted >= ' . $this->datetimeToDB($from) . ') OR (dot.date_deleted IS NULL AND a.last_modified >= ' . $this->datetimeToDB($from) . ')) END' : '')
+			. (isset($until) ? ' AND CASE WHEN COALESCE(dot.date_deleted, a.last_modified) < i.last_modified THEN (i.last_modified <= ' . $this->datetimeToDB($until) . ') ELSE ((dot.date_deleted IS NOT NULL AND dot.date_deleted <= ' . $this->datetimeToDB($until) . ') OR (dot.date_deleted IS NULL AND a.last_modified <= ' . $this->datetimeToDB($until) . ')) END' : '')
+			. ' ORDER BY journal_id';
+	}
+
+	/**
+>>>>>>> journal_iitta_template
 	 * @see lib/pkp/classes/oai/PKPOAIDAO::setOAIData()
 	 */
 	function setOAIData($record, $row, $isRecord = true) {

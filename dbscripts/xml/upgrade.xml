@@ -26,8 +26,12 @@
 		<code function="syncSeriesAssocType" />
 		<data file="dbscripts/xml/upgrade/2.4.0_preupdate_usageStatistics.xml" condition="return $installer->columnExists('article_galleys', 'views');" />
 		<data file="dbscripts/xml/upgrade/2.4.0_preupdate_usageStatistics2.xml" condition="return $installer->columnExists('issue_galleys', 'views');" />
+<<<<<<< HEAD
 		<code function="removeReviewEntries" />
 		<data file="dbscripts/xml/upgrade/3.0.0_preupdate.xml" condition="return $installer->columnExists('edit_decisions', 'article_id');" />
+=======
+		<data file="dbscripts/xml/upgrade/3.0.0_preupdate.xml" condition="return $installer->columnExists('edit_decisions', 'article_id');" />	
+>>>>>>> journal_iitta_template
 		<data file="dbscripts/xml/upgrade/3.0.0_adaptTimedViews.xml" condition="return $installer->tableExists('timed_views_log');" />
 		<data file="dbscripts/xml/upgrade/3.0.0_adaptReferrals.xml" condition="return $installer->tableExists('referrals');" />
 		<data file="dbscripts/xml/upgrade/3.0.0_adaptBooksForReview.xml" condition="return $installer->tableExists('books_for_review');" />
@@ -152,13 +156,22 @@
 		<data file="dbscripts/xml/upgrade/3.0.0_edit_decisions.xml" />
 		<code function="clearCssCache" />
 		<code function="convertCommentsToEditor" condition="return $installer->tableExists('submissions_tmp');" />
+		<code function="moveReviewerFiles" />
+		<data file="dbscripts/xml/upgrade/3.0.0_reviewer_files.xml" />
 	</upgrade>
 
 	<upgrade minversion="2.4.0.0" maxversion="3.0.1.9">
 		<data file="dbscripts/xml/upgrade/3.0.2_update.xml" />
+		<!--  the order of the next two lines is important -->
+		<code function="moveReviewerFiles" />
+		<data file="dbscripts/xml/upgrade/3.0.0_reviewer_files.xml" />
+		<data file="dbscripts/xml/upgrade/3.0.2_review_assignments.xml" />
+		<data file="dbscripts/xml/upgrade/3.0.2_edit_decisions.xml" />
+		<data file="dbscripts/xml/upgrade/3.0.2_crossref_schema_url_update.xml" />
 		<note file="docs/release-notes/README-3.0.2" />
 	</upgrade>
 
+<<<<<<< HEAD
 	<upgrade minversion="3.0.0.0" maxversion="3.0.9.9">
 		<code function="installEmailTemplate" key="PASSWORD_RESET" locales="ca_ES,cs_CZ,da_DK,de_DE,en_US,es_ES,eu_ES,fi_FI,fr_CA,hr_HR,id_ID,it_IT,nb_NO,nl_NL,pt_BR,pt_PT,ru_RU,sv_SE,tr_TR,uk_UA,zh_CN" />
 		<data file="dbscripts/xml/upgrade/3.1.0_update_a.xml" />
@@ -191,6 +204,19 @@
 	<upgrade minversion="3.0.0.0" maxversion="3.1.0.9">
 		<code function="repairSuppFilesFilestage" />
 	</upgrade>
+=======
+	<upgrade minversion="3.0.2.0" maxversion="3.0.2.9">
+		<!--  the order of the next two lines is important -->
+		<code function="moveReviewerFiles" />
+		<code function="fixAuthorGroup" />
+		<code function="repairImageAssociations" condition="return $installer->tableExists('submission_html_galley_images');" />
+		<data file="dbscripts/xml/upgrade/3.0.0_reviewer_files.xml" />
+		<data file="dbscripts/xml/upgrade/3.0.2_review_assignments.xml" />
+		<data file="dbscripts/xml/upgrade/3.0.2_edit_decisions.xml" />
+		<data file="dbscripts/xml/upgrade/3.0.2_crossref_schema_url_update.xml" />
+	</upgrade>
+
+>>>>>>> journal_iitta_template
 
 	<!-- update plugin configuration - should be done as the final upgrade task -->
 	<code function="addPluginVersions" />

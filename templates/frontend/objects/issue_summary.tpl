@@ -12,7 +12,12 @@
 {if $issue->getShowTitle()}
 {assign var=issueTitle value=$issue->getLocalizedTitle()}
 {/if}
+<<<<<<< HEAD
+=======
+{if $issue->getShowVolume() || $issue->getShowNumber() || $issue->getShowYear()}
+>>>>>>> journal_iitta_template
 {assign var=issueSeries value=$issue->getIssueSeries()}
+{/if}
 {assign var=issueCover value=$issue->getLocalizedCoverImageUrl()}
 
 <div class="obj_issue_summary">

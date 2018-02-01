@@ -45,7 +45,11 @@ class ReviewerHandler extends PKPReviewerHandler {
 			$args,
 			$roleAssignments,
 			'submissionId',
+<<<<<<< HEAD
 			$router->getRequestedOp($request)=='submission' || (in_array($router->getRequestedOp($request), array('step', 'saveStep')) && $request->getUserVar('step') == 1) // Limit declined review views to step 1
+=======
+			$router->getRequestedOp()=='submission' || (in_array($router->getRequestedOp(), array('step', 'saveStep')) && $request->getUserVar('step') == 1) // Limit declined review views to step 1
+>>>>>>> journal_iitta_template
 		));
 
 

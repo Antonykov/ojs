@@ -523,9 +523,13 @@ class IssueGridHandler extends GridHandler {
 			);
 		}
 
+<<<<<<< HEAD
 		$json = DAO::getDataChangedEvent();
 		$json->setGlobalEvent('issuePublished', array('id' => $issue->getId()));
 		return $json;
+=======
+		return DAO::getDataChangedEvent();
+>>>>>>> journal_iitta_template
 	}
 
 	/**

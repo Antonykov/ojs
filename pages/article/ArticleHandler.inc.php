@@ -66,12 +66,17 @@ class ArticleHandler extends Handler {
 
 		if (!isset($this->article)) $request->getDispatcher()->handle404();
 
+<<<<<<< HEAD
 		if (in_array($request->getRequestedOp(), array('view', 'download'))) {
 			$galleyId = isset($args[1]) ? $args[1] : 0;
 			$galleyDao = DAORegistry::getDAO('ArticleGalleyDAO');
 			$this->galley = $galleyDao->getByBestGalleyId($galleyId, $this->article->getId());
 			if ($galleyId && !$this->galley) $request->getDispatcher()->handle404();
 		}
+=======
+		$galleyDao = DAORegistry::getDAO('ArticleGalleyDAO');
+		$this->galley = $galleyDao->getByBestGalleyId($galleyId, $this->article->getId());
+>>>>>>> journal_iitta_template
 	}
 
 	/**
